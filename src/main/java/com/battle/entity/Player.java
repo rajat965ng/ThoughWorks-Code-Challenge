@@ -2,12 +2,14 @@ package com.battle.entity;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Queue;
 
 public class Player {
 
 
     private Status status;
     private Map<String,Ship> inventory;
+    private Queue<Attack> cannon;
 
     public Player() {
         this.inventory = new HashMap<>();
@@ -28,6 +30,14 @@ public class Player {
 
     public void setInventory(Map<String, Ship> inventory) {
         this.inventory = inventory;
+    }
+
+    public Queue<Attack> getCannon() {
+        return cannon;
+    }
+
+    public void setCannon(Queue<Attack> cannon) {
+        this.cannon = cannon;
     }
 
     @Override

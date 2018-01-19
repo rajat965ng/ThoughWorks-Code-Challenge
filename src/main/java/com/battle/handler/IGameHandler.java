@@ -1,6 +1,7 @@
 package com.battle.handler;
 
 import com.battle.entity.Game;
+import com.battle.entity.Player;
 
 public interface IGameHandler {
 
@@ -8,4 +9,5 @@ public interface IGameHandler {
                                    String height, String playerOnePosition,
                                    String playerTwoPosition);
 
+    public void loadCannon(String[] ammos, Player player);
 }
