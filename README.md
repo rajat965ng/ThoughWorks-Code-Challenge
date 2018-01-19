@@ -1,2 +1,2 @@
-# ThoughWorks-Code-Challenge
+# ThoughtWorks-Code-Challenge
 Battle Ship Gaming Problem
