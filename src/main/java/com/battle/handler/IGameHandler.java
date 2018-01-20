@@ -9,5 +9,7 @@ public interface IGameHandler {
                                    String height, String playerOnePosition,
                                    String playerTwoPosition);
 
-    public void loadCannon(String[] ammos, Player player);
+    public void armsInitializer(String[] ammos, Player player);
+
+    public Player attack(Player playerOne,Player playerTwo);
 }

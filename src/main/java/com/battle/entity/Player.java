@@ -6,7 +6,7 @@ import java.util.Queue;
 
 public class Player {
 
-
+    private String name;
     private Status status;
     private Map<String,Ship> inventory;
     private Queue<Attack> cannon;
@@ -14,6 +14,14 @@ public class Player {
     public Player() {
         this.inventory = new HashMap<>();
         this.status = Status.PLAYABLE;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Status getStatus() {

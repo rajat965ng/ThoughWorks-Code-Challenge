@@ -1,9 +1,7 @@
 package com.battle.impl;
 
-import com.battle.entity.Attack;
-import com.battle.entity.Board;
-import com.battle.entity.Game;
-import com.battle.entity.Player;
+import com.battle.entity.*;
+import com.battle.handler.IAttackHandler;
 import com.battle.handler.IGameHandler;
 
 import java.util.Arrays;
@@ -16,6 +14,7 @@ public class GameHandler implements IGameHandler {
     private Board battleBoard;
     Player playerOne;
     Player playerTwo;
+    IAttackHandler attackHandler;
 
     public GameHandler(Board battleBoard) {
         this.battleBoard = battleBoard;
@@ -30,22 +29,40 @@ public class GameHandler implements IGameHandler {
         playerOne = BattleShipFactory.valueOf(battleShipType)
                 .initShip(battleBoard,Integer.parseInt(width),Integer.parseInt(height))
                 .buildParts(playerOne,playerOnePosition);
+        playerOne.setName("Player-1");
         playerTwo = BattleShipFactory.valueOf(battleShipType)
                 .initShip(battleBoard,Integer.parseInt(width),Integer.parseInt(height))
                 .buildParts(playerTwo,playerTwoPosition);
-
+        playerTwo.setName("Player-2");
         game.setPlayerOne(playerOne);
         game.setPlayerTwo(playerTwo);
         return game;
     }
 
     @Override
-    public void loadCannon(String[] ammos, Player player) {
+    public void armsInitializer(String[] ammos, Player player) {
         player.setCannon(new LinkedBlockingQueue<>());
-        Arrays.stream(ammos).map(ammo -> {
-            char[] coordinates = ammo.toCharArray();
-            return new Attack(""+coordinates[0],""+coordinates[1]);
-        }).forEach(attack -> {player.getCannon().add(attack);});
+        attackHandler.loadCannon(ammos,player);
+    }
+
+    @Override
+    public Player attack(Player playerOne, Player playerTwo) {
+        boolean success = false;
+        if (playerOne.getStatus()== Status.ATTACK){
+            Attack attack = playerOne.getCannon().poll();
+            String attacklbl = attack.getxCoordinate()+attack.getyCoordinate();
+            success = attackHandler.isAttackSuccessFull(attack,playerTwo);
+            if (success){
+                System.out.println(playerOne.getName()+": Successfully Hit the target "+attacklbl);
+                return attack(playerOne,playerTwo);
+            }else {
+                System.out.println(playerOne.getName()+": Miss the target "+attacklbl);
+                playerOne.setStatus(Status.WAIT);
+                playerTwo.setStatus(Status.ATTACK);
+                return attack(playerTwo,playerOne);
+            }
+        }
+        return null;
     }
 }
 
