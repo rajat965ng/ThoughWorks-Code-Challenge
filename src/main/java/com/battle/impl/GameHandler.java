@@ -4,9 +4,7 @@ import com.battle.entity.*;
 import com.battle.handler.IAttackHandler;
 import com.battle.handler.IGameHandler;
 
-import java.util.Arrays;
 import java.util.concurrent.LinkedBlockingQueue;
-import java.util.stream.Collectors;
 
 public class GameHandler implements IGameHandler {
 
@@ -56,21 +54,24 @@ public class GameHandler implements IGameHandler {
         }
         if (playerOne.getStatus()== Status.ATTACK){
             Attack attack = playerOne.getCannon().poll();
+
             if (attack!=null){
-            attacklbl = attack.getxCoordinate()+attack.getyCoordinate();
-            success = attackHandler.isAttackSuccessFull(attack,playerTwo);
-            if (success){
-                if (!attackHandler.isOpponentExist(playerTwo)){
-                    System.out.println(playerOne.getName()+": Won !!");
-                    return playerOne;
+                attacklbl = attack.getxCoordinate()+attack.getyCoordinate();
+                success = attackHandler.isAttackSuccessFull(attack,playerTwo);
+                if (success){
+                    if (!attackHandler.isOpponentExist(playerTwo)){
+                        System.out.println(playerOne.getName()+": Won !!");
+                        return playerOne;
+                    }
+                    System.out.println(playerOne.getName()+": Successfully Hit the target "+attacklbl);
+                    return attack(playerOne,playerTwo);
+                }else {
+                    System.out.println(playerOne.getName() + ": Miss the target " + attacklbl);
                 }
-                System.out.println(playerOne.getName()+": Successfully Hit the target "+attacklbl);
-                return attack(playerOne,playerTwo);
-            }}else {
+            }else {
                 System.out.println(playerOne.getName()+": Out of ammo ");
             }
         }
-        System.out.println(playerOne.getName()+": Miss the target "+attacklbl);
         playerOne.setStatus(Status.WAIT);
         playerTwo.setStatus(Status.ATTACK);
         return attack(playerTwo,playerOne);
