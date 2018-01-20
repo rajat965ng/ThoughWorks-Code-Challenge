@@ -32,4 +32,12 @@ public class AttackHandler implements IAttackHandler {
        }
         return flag;
     }
+
+    @Override
+    public boolean isOpponentExist(Player opponent) {
+       return opponent.getInventory().entrySet().stream()
+                .anyMatch(inventory -> inventory.getValue()
+                        .getParts().entrySet().stream()
+                        .anyMatch(ship -> ship.getValue()>0));
+    }
 }

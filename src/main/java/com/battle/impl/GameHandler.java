@@ -21,6 +21,7 @@ public class GameHandler implements IGameHandler {
         this.game = new Game();
         this.playerOne = new Player();
         this.playerTwo = new Player();
+        this.attackHandler = new AttackHandler();
     }
 
     @Override
@@ -48,21 +49,31 @@ public class GameHandler implements IGameHandler {
     @Override
     public Player attack(Player playerOne, Player playerTwo) {
         boolean success = false;
+        String attacklbl = "";
+        if (playerOne.getCannon().isEmpty() && playerTwo.getCannon().isEmpty()){
+            System.out.println("Match Draw");
+            return null;
+        }
         if (playerOne.getStatus()== Status.ATTACK){
             Attack attack = playerOne.getCannon().poll();
-            String attacklbl = attack.getxCoordinate()+attack.getyCoordinate();
+            if (attack!=null){
+            attacklbl = attack.getxCoordinate()+attack.getyCoordinate();
             success = attackHandler.isAttackSuccessFull(attack,playerTwo);
             if (success){
+                if (!attackHandler.isOpponentExist(playerTwo)){
+                    System.out.println(playerOne.getName()+": Won !!");
+                    return playerOne;
+                }
                 System.out.println(playerOne.getName()+": Successfully Hit the target "+attacklbl);
                 return attack(playerOne,playerTwo);
-            }else {
-                System.out.println(playerOne.getName()+": Miss the target "+attacklbl);
-                playerOne.setStatus(Status.WAIT);
-                playerTwo.setStatus(Status.ATTACK);
-                return attack(playerTwo,playerOne);
+            }}else {
+                System.out.println(playerOne.getName()+": Out of ammo ");
             }
         }
-        return null;
+        System.out.println(playerOne.getName()+": Miss the target "+attacklbl);
+        playerOne.setStatus(Status.WAIT);
+        playerTwo.setStatus(Status.ATTACK);
+        return attack(playerTwo,playerOne);
     }
 }
 

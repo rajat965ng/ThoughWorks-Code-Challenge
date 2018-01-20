@@ -9,4 +9,6 @@ public interface IAttackHandler {
 
     public boolean isAttackSuccessFull(Attack attack,Player opponent);
 
+    public boolean isOpponentExist(Player opponent);
+
 }

@@ -3,6 +3,8 @@ package com.battle.ctx;
 
 import com.battle.entity.Board;
 import com.battle.entity.Game;
+import com.battle.entity.Player;
+import com.battle.entity.Status;
 import com.battle.handler.IBattleBoardHandler;
 import com.battle.handler.IGameHandler;
 import com.battle.impl.BattleBoardHandler;
@@ -63,14 +65,16 @@ public class AppTest {
         System.out.println("Attack Plan by Player One:");
         setInput("A1 B2 B2 B3");
         String[] playerOne = input.split(" ");
-        gameHandler.loadCannon(playerOne,game.getPlayerOne());
+        gameHandler.armsInitializer(playerOne,game.getPlayerOne());
         assertEquals(4,game.getPlayerOne().getCannon().size());
         System.out.println("Attack Plan by Player Two:");
         setInput("A1 B2 B3 A1 D1 E1 D4 D4 D5 D5");
         String[] playerTwo = input.split(" ");
-        gameHandler.loadCannon(playerTwo,game.getPlayerTwo());
+        gameHandler.armsInitializer(playerTwo,game.getPlayerTwo());
         assertEquals(10,game.getPlayerTwo().getCannon().size());
-
+        game.getPlayerOne().setStatus(Status.ATTACK);
+        Player winner = gameHandler.attack(game.getPlayerOne(),game.getPlayerTwo());
+        assertEquals(game.getPlayerTwo().getName(),winner.getName());
     }
 
 
