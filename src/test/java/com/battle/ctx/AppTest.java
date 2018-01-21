@@ -8,15 +8,14 @@ import com.battle.entity.Status;
 import com.battle.handler.IBattleBoardHandler;
 import com.battle.handler.IGameHandler;
 import com.battle.impl.BattleBoardHandler;
-import static org.junit.Assert.*;
-
 import com.battle.impl.GameHandler;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.io.ByteArrayInputStream;
 import java.util.Arrays;
 import java.util.Scanner;
+
+import static org.junit.Assert.*;
 
 public class AppTest {
 
@@ -39,7 +38,7 @@ public class AppTest {
     }
 
     @Test
-    public void test_1_initialize_game(){
+    public void test_1_initialize_game() {
         IBattleBoardHandler battleBoardHandler = new BattleBoardHandler(width,height,numOfShips);
         Board battleBoard = battleBoardHandler.init();
         assertNotNull(battleBoard);

@@ -19,20 +19,7 @@ public enum BattleShipFactory {
         @Override
         public Player buildParts(Player player,String playerLocation) {
             char[] locArr = playerLocation.toCharArray();
-            Map<String,Integer> parts = new HashMap<>();
-
-            for(int i=locArr[0];i<locArr[0]+getShip().getHeight();i++){
-                if (!player.getInventory().containsKey(""+(char)i+"")){
-                    player.getInventory().put(""+(char)i+"",null);
-                }
-                int xCoordnate = Integer.parseInt(""+locArr[1]);
-                for (int j= xCoordnate;j<xCoordnate+getShip().getWidth();j++){
-                    parts.put(""+j+"",2);
-                }
-                getShip().setParts(parts);
-                player.getInventory().put(""+(char)i+"",getShip());
-            }
-            return player;
+            return createArmouredShip(2,locArr,player);
         }
     },
     P{
@@ -45,19 +32,7 @@ public enum BattleShipFactory {
         @Override
         public Player buildParts(Player player,String playerLocation) {
             char[] locArr = playerLocation.toCharArray();
-            Map<String,Integer> parts = new HashMap<>();
-            for(int i=locArr[0];i<locArr[0]+getShip().getHeight();i++){
-                if (!player.getInventory().containsKey(""+(char)i+"")){
-                    player.getInventory().put(""+(char)i+"",null);
-                }
-                int xCoordnate = Integer.parseInt(""+locArr[1]);
-                for (int j= xCoordnate;j<xCoordnate+getShip().getWidth();j++){
-                    parts.put(""+j+"",1);
-                }
-                getShip().setParts(parts);
-                player.getInventory().put(""+(char)i+"",getShip());
-            }
-            return player;
+            return createArmouredShip(1,locArr,player);
         }
     };
 
@@ -71,5 +46,21 @@ public enum BattleShipFactory {
 
     public void setShip(Ship ship) {
         this.ship = ship;
+    }
+
+    public Player createArmouredShip(int armour,char[] locationIndex,Player player){
+        Map<String,Integer> parts = new HashMap<>();
+        for(int i=locationIndex[0];i<locationIndex[0]+getShip().getHeight();i++){
+            if (!player.getInventory().containsKey(""+(char)i+"")){
+                player.getInventory().put(""+(char)i+"",null);
+            }
+            int xCoordnate = Integer.parseInt(""+locationIndex[1]);
+            for (int j= xCoordnate;j<xCoordnate+getShip().getWidth();j++){
+                parts.put(""+j+"",armour);
+            }
+            getShip().setParts(parts);
+            player.getInventory().put(""+(char)i+"",getShip());
+        }
+        return player;
     }
 }
