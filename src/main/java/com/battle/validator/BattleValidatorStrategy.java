@@ -10,6 +10,9 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public enum BattleValidatorStrategy {
+    /**
+     * A <= Height of Battle area (N’) <= Z
+     */
     BATTLE_AREA_HEIGHT{
         @Override
         public void validate(Object input) {
@@ -21,6 +24,9 @@ public enum BattleValidatorStrategy {
             }
         }
     },
+    /**
+     * 1 <= Width of Battle area (M’) <= 9
+     */
     BATTLE_AREA_WIDTH{
         @Override
         public void validate(Object input) {
@@ -31,6 +37,9 @@ public enum BattleValidatorStrategy {
             }
         }
     },
+    /**
+     * A <= Height of battleship <= N’
+     */
     BATTLE_SHIP_HEIGHT{
         @Override
         public void validate(Object input) {
@@ -42,6 +51,9 @@ public enum BattleValidatorStrategy {
             }
         }
     },
+    /**
+     * 1 <= Width of battleship <= M’
+     */
     BATTLE_SHIP_WIDTH{
         @Override
         public void validate(Object input) {
@@ -61,6 +73,9 @@ public enum BattleValidatorStrategy {
             BATTLE_SHIP_WIDTH.validate(ship);
         }
     },
+    /**
+     * 1 <= X coordinate of ship <= M’
+     */
     BATTLE_SHIP_Y_COORD{
         @Override
         public void validate(Object input) {
@@ -74,6 +89,9 @@ public enum BattleValidatorStrategy {
             }
         }
     },
+    /**
+     * A <= Y coordinate of ship <= N’
+     */
     BATTLE_SHIP_X_COORD{
         @Override
         public void validate(Object input) {
@@ -98,6 +116,9 @@ public enum BattleValidatorStrategy {
             BATTLE_SHIP_Y_COORD.validate(player);
         }
     },
+    /**
+     * 1 <= Number of battleships <= M’ * N’
+     */
     BATTLE_BOARD_SHIP_NUM{
         @Override
         public void validate(Object input) {
@@ -111,6 +132,9 @@ public enum BattleValidatorStrategy {
             }
         }
     },
+    /**
+     * Type of ship = {‘P’, ‘Q’}
+     */
     BATTLE_SHIP_TYPE{
         @Override
         public void validate(Object input) {
@@ -121,6 +145,9 @@ public enum BattleValidatorStrategy {
             }
         }
     },
+    /**
+     * Checks if the Battle ships of Player 1 and 2 are overlapping or not.
+     */
     BATTLE_SHIP_OVERLAP{
         @Override
         public void validate(Object input) {

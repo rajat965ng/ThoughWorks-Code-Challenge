@@ -5,6 +5,5 @@ public enum Status {
     WINNER,
     LOOSER,
     ATTACK,
-    WAIT,
-    DRAW;
+    WAIT
 }

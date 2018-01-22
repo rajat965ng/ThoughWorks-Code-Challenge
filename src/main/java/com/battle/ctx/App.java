@@ -33,25 +33,26 @@ public class App
     {
         App app = new App();
         Scanner sc = new Scanner(System.in);
+
         System.out.println("Enter Dimensions of Battle Area, X(1-9), Y(A-Z):");
         app.setInput(sc.nextLine());
         if (app.input!=null && app.input.split(" ").length==2) {
-            System.out.println("Dimensions: " + Arrays.toString(app.input.split(" ")));
-            String[] dimension = app.input.split(" ");
-            String width = dimension[0];
-            String height = dimension[1];
-            System.out.println("Enter number of Battle Ships:");
-            app.setInput(sc.nextLine());
-            boolean isNum = app.input.chars().allMatch(Character::isDigit);
-            if(!isNum){
-                System.out.println("Enter valid number of Battle Ships");
-                System.exit(0);
-            }
-            int numOfShips = Integer.parseInt(app.input);
-            IBattleBoardHandler battleBoardHandler = new BattleBoardHandler(width,height,numOfShips);
-            Board battleBoard = battleBoardHandler.init();
-            IGameHandler gameHandler = new GameHandler(battleBoard);
             try {
+                System.out.println("Dimensions: " + Arrays.toString(app.input.split(" ")));
+                String[] dimension = app.input.split(" ");
+                String width = dimension[0];
+                String height = dimension[1];
+                System.out.println("Enter number of Battle Ships:");
+                app.setInput(sc.nextLine());
+                boolean isNum = app.input.chars().allMatch(Character::isDigit);
+                if(!isNum){
+                    System.out.println("Enter valid number of Battle Ships");
+                    System.exit(0);
+                }
+                int numOfShips = Integer.parseInt(app.input);
+                IBattleBoardHandler battleBoardHandler = new BattleBoardHandler(width,height,numOfShips);
+                Board battleBoard = battleBoardHandler.init();
+                IGameHandler gameHandler = new GameHandler(battleBoard);
                 System.out.println("Enter battleship type, dimensions (width and height) & positions (Y\n" +
                         "coordinate and X coordinate) for Player-1 and then for Player-2 [separated\n" +
                         "by space]:");

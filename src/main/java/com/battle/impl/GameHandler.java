@@ -7,6 +7,10 @@ import com.battle.validator.BattleValidatorStrategy;
 
 import java.util.concurrent.LinkedBlockingQueue;
 
+/**
+ * Initiate Player initialization, Ammunition initialization
+ * and attack initiation
+ */
 public class GameHandler implements IGameHandler {
 
     private Game game;
@@ -23,6 +27,15 @@ public class GameHandler implements IGameHandler {
         this.attackHandler = new AttackHandler();
     }
 
+    /**
+     * Compose Player
+     *
+     * @param battleShipType
+     * @param width
+     * @param height
+     * @param playerOnePosition
+     * @param playerTwoPosition
+     */
     @Override
     public Game initialisePlayer(String battleShipType, String width,String height,
                                  String playerOnePosition,String playerTwoPosition) {
@@ -46,12 +59,22 @@ public class GameHandler implements IGameHandler {
         return game;
     }
 
+    /**
+     * Initialize arms
+     * @param ammos
+     * @param player
+     */
     @Override
     public void armsInitializer(String[] ammos, Player player) {
         player.setCannon(new LinkedBlockingQueue<>());
         attackHandler.loadCannon(ammos,player);
     }
 
+    /**
+     * Initiate attacks
+     * @param playerOne
+     * @param playerTwo
+     */
     @Override
     public Player attack(Player playerOne, Player playerTwo) {
         boolean success = false;

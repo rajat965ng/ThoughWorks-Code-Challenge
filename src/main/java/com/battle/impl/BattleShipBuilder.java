@@ -7,8 +7,11 @@ import com.battle.validator.BattleValidatorStrategy;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.stream.IntStream;
 
+/**
+ * Builder for Composing Player and initialize its ammunition
+ * and battle ships
+ */
 public enum BattleShipBuilder {
 
     Q{
@@ -43,6 +46,7 @@ public enum BattleShipBuilder {
     };
 
     private Ship ship;
+
     public abstract BattleShipBuilder initShip(Board battleBoard, int width, int height);
     public abstract Player buildParts(Player player, String playerLocation);
 
@@ -54,14 +58,21 @@ public enum BattleShipBuilder {
         this.ship = ship;
     }
 
+    /**
+     * Compose Player with armoured Ship.
+     * Level of armour (Q=2, P=1)
+     * @param armour
+     * @param locationIndex
+     * @param player
+     */
     public Player createArmouredShip(int armour,char[] locationIndex,Player player){
         Map<String,Integer> parts = new HashMap<>();
         for(int i=locationIndex[0];i<locationIndex[0]+getShip().getHeight();i++){
             if (!player.getInventory().containsKey(""+(char)i+"")){
                 player.getInventory().put(""+(char)i+"",null);
             }
-            int xCoordnate = Integer.parseInt(""+locationIndex[1]);
-            for (int j= xCoordnate;j<xCoordnate+getShip().getWidth();j++){
+            int xCoordinate = Integer.parseInt(""+locationIndex[1]);
+            for (int j= xCoordinate;j<xCoordinate+getShip().getWidth();j++){
                 parts.put(""+j+"",armour);
             }
             getShip().setParts(parts);

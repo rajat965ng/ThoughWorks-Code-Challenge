@@ -8,8 +8,17 @@ import com.battle.validator.BattleValidatorStrategy;
 
 import java.util.Arrays;
 
+/**
+ * Handler for managing attacks
+ */
 public class AttackHandler implements IAttackHandler {
 
+    /**
+     * Load the cannon
+     *
+     * @param ammos
+     * @param player
+     */
     @Override
     public void loadCannon(String[] ammos, Player player) {
         BattleValidatorStrategy.NULL_CHECK.validate(ammos);
@@ -19,6 +28,12 @@ public class AttackHandler implements IAttackHandler {
         }).forEach(attack -> {player.getCannon().add(attack);});
     }
 
+    /**
+     * Checking if the attack is Hit or Miss
+     * @param attack
+     * @param opponent
+     *
+     */
     @Override
     public boolean isAttackSuccessFull(Attack attack, Player opponent) {
         boolean flag = false;
@@ -35,6 +50,10 @@ public class AttackHandler implements IAttackHandler {
         return flag;
     }
 
+    /**
+     * For checking if Opponent still exist
+     * @param opponent
+     */
     @Override
     public boolean isOpponentExist(Player opponent) {
        return opponent.getInventory().entrySet().stream()
