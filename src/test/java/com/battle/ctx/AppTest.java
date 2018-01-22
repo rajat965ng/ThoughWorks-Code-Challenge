@@ -38,7 +38,7 @@ public class AppTest {
     }
 
     @Test
-    public void test_1_initialize_game() {
+    public void test_Battle_Ship_game() {
         IBattleBoardHandler battleBoardHandler = new BattleBoardHandler(width,height,numOfShips);
         Board battleBoard = battleBoardHandler.init();
         assertNotNull(battleBoard);

@@ -4,6 +4,7 @@ import com.battle.entity.Attack;
 import com.battle.entity.Player;
 import com.battle.entity.Ship;
 import com.battle.handler.IAttackHandler;
+import com.battle.validator.BattleValidatorStrategy;
 
 import java.util.Arrays;
 
@@ -11,6 +12,7 @@ public class AttackHandler implements IAttackHandler {
 
     @Override
     public void loadCannon(String[] ammos, Player player) {
+        BattleValidatorStrategy.NULL_CHECK.validate(ammos);
         Arrays.stream(ammos).map(ammo -> {
             char[] coordinates = ammo.toCharArray();
             return new Attack(""+coordinates[0],""+coordinates[1]);

@@ -11,7 +11,8 @@ public class Player {
     private Map<String,Ship> inventory;
     private Queue<Attack> cannon;
 
-    public Player() {
+    public Player(String name) {
+        this.name = name;
         this.inventory = new HashMap<>();
         this.status = Status.PLAYABLE;
     }

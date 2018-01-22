@@ -3,16 +3,20 @@ package com.battle.impl;
 import com.battle.entity.Board;
 import com.battle.entity.Player;
 import com.battle.entity.Ship;
+import com.battle.validator.BattleValidatorStrategy;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.IntStream;
 
-public enum BattleShipFactory {
+public enum BattleShipBuilder {
 
     Q{
         @Override
-        public BattleShipFactory initShip(Board battleBoard,int width, int height) {
-            setShip(new Ship(battleBoard, width, height));
+        public BattleShipBuilder initShip(Board battleBoard, int width, int height) {
+            Ship ship = new Ship(battleBoard, width, height);
+            BattleValidatorStrategy.BATTLE_SHIP_DIMENSIONS.validate(ship);
+            setShip(ship);
             return Q;
         }
 
@@ -24,8 +28,10 @@ public enum BattleShipFactory {
     },
     P{
         @Override
-        public BattleShipFactory initShip(Board battleBoard,int width, int height) {
-            setShip(new Ship(battleBoard, width, height));
+        public BattleShipBuilder initShip(Board battleBoard, int width, int height) {
+            Ship ship = new Ship(battleBoard, width, height);
+            BattleValidatorStrategy.BATTLE_SHIP_DIMENSIONS.validate(ship);
+            setShip(ship);
             return P;
         }
 
@@ -37,7 +43,7 @@ public enum BattleShipFactory {
     };
 
     private Ship ship;
-    public abstract BattleShipFactory initShip(Board battleBoard,int width, int height);
+    public abstract BattleShipBuilder initShip(Board battleBoard, int width, int height);
     public abstract Player buildParts(Player player, String playerLocation);
 
     public Ship getShip() {

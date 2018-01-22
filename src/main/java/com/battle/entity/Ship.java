@@ -9,6 +9,7 @@ public class Ship {
     private int height;
     private Map<String,Integer> parts;
 
+    public Ship(){}
     public Ship(Board battleBoard, int width, int height) {
         this.battleBoard = battleBoard;
         this.width = width;
